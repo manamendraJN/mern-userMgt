@@ -5,7 +5,7 @@ export default function Header() {
     <div className='bg-slate-200'>
         <div className='flex justify-between items-center max-w-6xl mx-auto p-3'>
             <h1 className='font-bold'>STAFF-MANAGEMENT</h1>
-            <ul className='flex gap-14'>
+            <ul className='flex gap-14 font-light'>
 
             <Link to='/'>
                     <li>Staff Main</li>
