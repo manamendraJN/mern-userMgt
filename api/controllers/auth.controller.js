@@ -1,7 +1,7 @@
 import Staff from "../models/staff.model.js";
 import bcryptjs from 'bcryptjs';
 
-export const register = async(req,res)=>{
+export const register = async(req,res,next)=>{
     const {name,id,type,number,email,address,joindate,shift,license,username,password} = req.body;
     const hashedPassword = bcryptjs.hashSync(password, 10);
     const newStaff = new Staff({name,id,type,number,email,address,joindate,shift,license,username,password:hashedPassword});
@@ -11,6 +11,6 @@ export const register = async(req,res)=>{
         await newStaff.save()
         res.status(201).json({message:"Staff member created successfully"});
     } catch (error) {
-        res.status(500).json(error.message);
+        next(error);
     }
 };
