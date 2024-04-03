@@ -7,17 +7,21 @@ const staffSchema = new mongoose.Schema( {
         
     },
 
-    number:{
-        type: String,
-        required: true,
-        
-    },
-
     id:{
         type: String,
         required: true,
         unique:true,
         
+    },
+
+    type:{
+        type: String,
+        required: true,
+    },
+
+    number:{
+        type: String,
+        required: true, 
     },
 
     email:{
@@ -46,20 +50,20 @@ const staffSchema = new mongoose.Schema( {
 
     license:{
         type: String,
-        required: true,
+        
         
     },
 
     username:{
         type: String,
-        required: true,
+        
         unique:true,
         
     },
 
     password:{
         type: String,
-        required: true,
+        
         unique:true,
         
     },
