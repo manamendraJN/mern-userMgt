@@ -20,7 +20,7 @@ const staffSchema = new mongoose.Schema( {
     },
 
     number:{
-        type: String,
+        type: Number,
         required: true, 
     },
 
@@ -44,28 +44,26 @@ const staffSchema = new mongoose.Schema( {
 
     shift:{
         type: String,
-        required: true,
+        
         
     },
 
     license:{
-        type: String,
+        type: Number,
         
         
     },
 
     username:{
         type: String,
-        
         unique:true,
         
     },
 
     password:{
         type: String,
-        
         unique:true,
-        
+    
     },
 }, {timestamps:true} );
 
