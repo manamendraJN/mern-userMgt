@@ -5,17 +5,38 @@ import Jwt from "jsonwebtoken";
 
 export const register = async(req,res,next)=>{
     const {name,id,type,number,email,address,joindate,shift,license,username,password} = req.body;
-    const hashedPassword = bcryptjs.hashSync(password, 10);
-    const newStaff = new Staff({name,id,type,number,email,address,joindate,shift,license,username,password:hashedPassword});
+
+    // Create an object to hold only the required fields
+    const staffData = {
+        name,
+        id,
+        type,
+        number,
+        email,
+        address,
+        joindate,
+        shift,
+        
+    };
+
+    // If username and password are provided, include them in the staffData object
+    if(license){staffData.license = license}
+
+    if (username && password) {
+        staffData.username = username;
+        staffData.password = bcryptjs.hashSync(password, 10);
+    }
 
     try {
-
-        await newStaff.save()
+        // Create a new staff instance with the staffData object
+        const newStaff = new Staff(staffData);
+        await newStaff.save();
         res.status(201).json({message:"Staff member created successfully"});
     } catch (error) {
         next(error);
     }
 };
+
 
 export const login = async(req,res,next)=>{
     const {username,password} = req.body;

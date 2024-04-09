@@ -1,71 +1,48 @@
 import mongoose from "mongoose";
 
-const staffSchema = new mongoose.Schema( {
-    name:{
-        type: String,
-        required: true,
-        
-    },
-
-    id:{
-        type: String,
-        required: true,
-        unique:true,
-        
-    },
-
-    type:{
+const staffSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: true,
     },
-
-    number:{
+    id: {
+        type: String,
+        required: true,
+        unique: true,
+    },
+    type: {
+        type: String,
+        required: true,
+    },
+    number: {
         type: Number,
-        required: true, 
+        required: true,
     },
-
-    email:{
+    email: {
         type: String,
         required: true,
-        
     },
-
-    address:{
+    address: {
         type: String,
         required: true,
-        
     },
-
-    joindate:{
+    joindate: {
         type: String,
         required: true,
-        
     },
-
-    shift:{
+    shift: {
         type: String,
-        
-        
     },
-
-    license:{
+    license: {
         type: Number,
-        
-        
     },
-
-    username:{
+    username: {
         type: String,
-        
-        
     },
-
-    password:{
+    password: {
         type: String,
-        
-    
     },
-}, {timestamps:true} );
+}, { timestamps: true });
 
 const Staff = mongoose.model('Staff', staffSchema);
 
