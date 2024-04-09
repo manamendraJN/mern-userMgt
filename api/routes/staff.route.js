@@ -1,5 +1,3 @@
-
-
 import express from 'express';
 import { getStaff, test, updateStaff, deleteStaff } from '../controllers/staff.controller.js';
 

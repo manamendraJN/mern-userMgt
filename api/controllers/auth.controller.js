@@ -16,14 +16,17 @@ export const register = async(req,res,next)=>{
         address,
         joindate,
         shift,
-        
     };
 
     // If username and password are provided, include them in the staffData object
     if(license){staffData.license = license}
 
-    if (username && password) {
+    // Handle null values for username
+    if (username !== null && username !== undefined) {
         staffData.username = username;
+    }
+    // Handle null values for password
+    if (password !== null && password !== undefined) {
         staffData.password = bcryptjs.hashSync(password, 10);
     }
 

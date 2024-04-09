@@ -1,5 +1,3 @@
-// staff.controller.js
-
 import Staff from '../models/staff.model.js';
 
 export const test = (req, res) => {
@@ -20,10 +18,14 @@ export const getStaff = async (req, res) => {
 
 export const updateStaff = async (req, res) => {
     const { id } = req.params;
-    const { number, email } = req.body;
+    const { number, name } = req.body;
 
     try {
-        const updatedStaff = await Staff.findByIdAndUpdate(id, { number, email }, { new: true });
+        const updatedFields = {};
+        if (number) updatedFields.number = number;
+        if (name) updatedFields.name = name;
+
+        const updatedStaff = await Staff.findByIdAndUpdate(id, updatedFields, { new: true });
         if (!updatedStaff) {
             return res.status(404).json({ success: false, message: "Staff member not found" });
         }
@@ -33,6 +35,8 @@ export const updateStaff = async (req, res) => {
         res.status(500).json({ success: false, message: "Internal Server Error" });
     }
 };
+
+
 
 export const deleteStaff = async (req, res) => {
     const { id } = req.params;

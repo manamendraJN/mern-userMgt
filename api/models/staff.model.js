@@ -38,6 +38,8 @@ const staffSchema = new mongoose.Schema({
     },
     username: {
         type: String,
+        
+       
     },
     password: {
         type: String,

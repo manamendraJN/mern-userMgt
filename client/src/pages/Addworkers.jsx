@@ -7,6 +7,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Addworkers() {
   const location = useLocation();
+  console.log("Location state:", location.state); // Log the entire location object
+  console.log("Staff Details:", location.state?.staffDetails);
   const [formData, setFormData] = useState(location.state?.staffDetails || {});
   const { loading, error } = useSelector((state) => state.staff);
   const dispatch = useDispatch();
@@ -24,7 +26,7 @@ export default function Addworkers() {
       
       // If staff details are provided, it's in update mode
       if (location.state?.staffDetails) {
-        url = '/api/auth/update'; // Adjust the endpoint for updating
+        url = `/api/auth/update/${formData._id}`; // Adjust the endpoint for updating
         method = 'PUT';
       }
 
@@ -46,8 +48,8 @@ export default function Addworkers() {
       dispatch(registerSuccess(data));
       setFormData({});
 
-      // Show toast message when staff is successfully created
-      toast.success('New staff member added successfully!');
+      // Show toast message when staff is successfully updated or created
+      toast.success(data.message);
       
     } catch (error) {
       dispatch(registerFailure(error.message)); // Pass the error message to the failure action
@@ -63,12 +65,14 @@ export default function Addworkers() {
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.name || ''}
           onChange={handleChange}
+          required // Add the required attribute
         />
 
         <input type="number" placeholder='Registration ID' id='id' 
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.id || ''}
           onChange={handleChange}
+          required // Add the required attribute
         />
 
         <select 
@@ -77,6 +81,7 @@ export default function Addworkers() {
           value={formData.type || ''} 
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400' 
           onChange={handleChange}
+          required // Add the required attribute
         >
           <option value="" disabled>Type</option> 
           <option value="Supervisor">Supervisor</option> 
@@ -88,30 +93,35 @@ export default function Addworkers() {
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.number || ''}
           onChange={handleChange}
+          required // Add the required attribute
         />
 
         <input type="email" placeholder='Email' id='email' 
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.email || ''}
           onChange={handleChange}
+          required // Add the required attribute
         />
 
         <input type="text" placeholder='Address' id='address' 
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.address || ''}
           onChange={handleChange}
+          required // Add the required attribute
         />
 
         <input type="date" placeholder='Join Date' id='joindate' 
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.joindate || ''}
           onChange={handleChange}
+          required // Add the required attribute
         />
 
         <input type="text" placeholder='Shift' id='shift' 
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.shift || ''}
           onChange={handleChange}
+          required // Add the required attribute
         />
 
         {!location.state?.staffDetails && (

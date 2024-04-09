@@ -1,8 +1,8 @@
-// Workerlist.jsx
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Workerlist() {
   const [staffList, setStaffList] = useState([]);
@@ -22,9 +22,14 @@ export default function Workerlist() {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`/api/staff/${id}`);
-      // Remove the deleted staff member from the list
-      setStaffList(staffList.filter((staff) => staff._id !== id));
+      const confirmed = window.confirm('Are you sure you want to delete this staff member?');
+      if (confirmed) {
+        await axios.delete(`/api/staff/${id}`);
+        // Remove the deleted staff member from the list
+        setStaffList(staffList.filter((staff) => staff._id !== id));
+        // Show toast message when staff member is successfully deleted
+        toast.success('Staff member deleted successfully!');
+      }
     } catch (error) {
       console.error('Error deleting staff:', error);
     }
@@ -36,7 +41,7 @@ export default function Workerlist() {
       <table className="w-full border-collapse">
         <thead>
           <tr className="bg-gray-200">
-          <th className="py-2 px-4 border">Name</th>
+            <th className="py-2 px-4 border">Name</th>
             <th className="py-2 px-4 border">ID</th>
             <th className="py-2 px-4 border">Type</th>
             <th className="py-2 px-4 border">Number</th>
@@ -61,16 +66,17 @@ export default function Workerlist() {
               <td className="py-2 px-4 border">{staff.shift}</td>
               <td className="py-2 px-4 border">{staff.license}</td>
               <td className="py-2 px-4 border">
-              <div className="flex justify-center">
+                <div className="flex justify-center">
                 <Link
-                  to={{
-                    pathname: '/Addworkers',
-                    state: { staffDetails: staff }
-                  }}
-                >
-                  <button className="bg-blue-500 text-white px-3 py-1 rounded">Update</button>
-                </Link>
-                <button className="bg-red-500 text-white px-3 py-1 rounded ml-2" onClick={() => handleDelete(staff._id)}>Delete</button>
+  to={{
+    pathname: '/Addworkers',
+    state: { staffDetails:staff } // Pass the selected staff details
+  }}
+>
+  <button className="bg-blue-500 text-white px-3 py-1 rounded">Update</button>
+</Link>
+
+                  <button className="bg-red-500 text-white px-3 py-1 rounded ml-2" onClick={() => handleDelete(staff._id)}>Delete</button>
                 </div>
               </td>
             </tr>

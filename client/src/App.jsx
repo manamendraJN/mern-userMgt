@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; // Import BrowserRouter and Routes
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Addworkers from './pages/Addworkers';
 import Workerlist from './pages/Workerlist';
 import Addshift from './pages/Addshift';
@@ -7,12 +7,14 @@ import Shiftlist from './pages/Shiftlist';
 import Login from './pages/login';
 import Staffmanagement from './pages/Staffmanagement';
 import Header from './component/Header';
-
+import { ToastContainer } from 'react-toastify'; // Import ToastContainer
+import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
 
 export default function App() {
   return (
-    <Router> {/* Wrap your components inside BrowserRouter */}
-      <Header /> {/* header */}
+    <Router>
+      <Header />
+      <ToastContainer /> {/* Add ToastContainer here */}
       <Routes>
         <Route path="/" element={<Staffmanagement />} />
         <Route path="/Addworkers" element={<Addworkers />} />
@@ -22,6 +24,5 @@ export default function App() {
         <Route path="/Login" element={<Login />} />
       </Routes>
     </Router>
-    
   );
 }
