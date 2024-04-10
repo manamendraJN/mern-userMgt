@@ -41,6 +41,7 @@ export default function Addworkers({ navigateToWorkerList }) {
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.name || ''}
           onChange={handleChange}
+          autoComplete="current-name"
           required
         />
 
@@ -48,6 +49,7 @@ export default function Addworkers({ navigateToWorkerList }) {
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.id || ''}
           onChange={handleChange}
+          autoComplete="current-id"
           required
         />
 
@@ -57,6 +59,7 @@ export default function Addworkers({ navigateToWorkerList }) {
           value={formData.type || ''}
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           onChange={handleChange}
+          autoComplete="current-type"
           required
         >
           <option value="" disabled>Type</option>
@@ -69,6 +72,7 @@ export default function Addworkers({ navigateToWorkerList }) {
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.number || ''}
           onChange={handleChange}
+          autoComplete="current-number"
           required
         />
 
@@ -76,6 +80,7 @@ export default function Addworkers({ navigateToWorkerList }) {
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.email || ''}
           onChange={handleChange}
+          autoComplete="current-email"
           required
         />
 
@@ -83,6 +88,7 @@ export default function Addworkers({ navigateToWorkerList }) {
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.address || ''}
           onChange={handleChange}
+          autoComplete="current-address"
           required
         />
 
@@ -90,6 +96,7 @@ export default function Addworkers({ navigateToWorkerList }) {
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.joindate || ''}
           onChange={handleChange}
+          autoComplete="current-joindate"
           required
         />
 
@@ -97,6 +104,7 @@ export default function Addworkers({ navigateToWorkerList }) {
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.shift || ''}
           onChange={handleChange}
+          autoComplete="current-shift"
           required
         />
 
@@ -104,6 +112,7 @@ export default function Addworkers({ navigateToWorkerList }) {
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.license || ''}
           onChange={handleChange}
+          autoComplete="current-license"
         />
 
         <input type="text" placeholder='Username (Supervisor Only)' id='username'

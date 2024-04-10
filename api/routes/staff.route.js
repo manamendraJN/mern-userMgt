@@ -7,6 +7,6 @@ router.get('/', test);
 router.get('/all', getStaff);
 router.put('/:id', updateStaff);
 router.delete('/:id', deleteStaff);
-router.get('/:id', getStaffById);
+router.get('/get/:id', getStaffById);
 
 export default router;

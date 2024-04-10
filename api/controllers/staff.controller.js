@@ -20,7 +20,7 @@ export const getStaffById = async (req, res) => {
     const { id } = req.params;
 
     try {
-        const staff = await Staff.findById(id);
+        const staff = await Staff.findById(req.params.id);
         if (!staff) {
             return res.status(404).json({ success: false, message: "Staff member not found" });
         }
@@ -33,12 +33,12 @@ export const getStaffById = async (req, res) => {
 
 export const updateStaff = async (req, res) => {
     const { id } = req.params; // Use _id instead of id
-    const { number, name } = req.body;
+    const { number, address } = req.body;
 
     try {
         const updatedFields = {};
         if (number) updatedFields.number = number;
-        if (name) updatedFields.name = name;
+        if (address) updatedFields.address = address;
 
         const updatedStaff = await Staff.findByIdAndUpdate(id, updatedFields, { new: true });
         if (!updatedStaff) {

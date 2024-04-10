@@ -151,11 +151,12 @@ export default function Workerlist() {
                 <td className="py-2 px-4 border">{staff.shift}</td>
                 <td className="py-2 px-4 border">{staff.license}</td>
                 <td className="py-2 px-4 border">
-
+                <div className="flex justify-between">
                   <Link to={`/Updatestaff/${staff._id}`}>
                   <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600">Update</button>
                   </Link>
                   <button className="bg-red-500 text-white px-3 py-1 rounded ml-2 hover:bg-red-600 focus:outline-none focus:bg-red-600" onClick={() => handleDelete(staff._id)}>Delete</button>
+                  </div>
                 </td>
               </tr>
             ))
