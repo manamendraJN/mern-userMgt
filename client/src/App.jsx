@@ -1,3 +1,4 @@
+// App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Addworkers from './pages/Addworkers';
@@ -9,6 +10,7 @@ import Staffmanagement from './pages/Staffmanagement';
 import Header from './component/Header';
 import { ToastContainer } from 'react-toastify'; // Import ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
+import Updatestaff from './pages/Updatestaff';
 
 export default function App() {
   return (
@@ -19,6 +21,7 @@ export default function App() {
         <Route path="/" element={<Staffmanagement />} />
         <Route path="/Addworkers" element={<Addworkers />} />
         <Route path="/Workerlist" element={<Workerlist />} />
+        <Route path="/Updatestaff/:staffId" element={<Updatestaff />} /> {/* Use element prop */}
         <Route path="/Addshift" element={<Addshift />} />
         <Route path="/Shiftlist" element={<Shiftlist />} />
         <Route path="/Login" element={<Login />} />

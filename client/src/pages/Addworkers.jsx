@@ -1,156 +1,132 @@
-import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
-import { registerStart, registerSuccess, registerFailure } from '../redux/staff/staffSlice';
+import React, { useState } from 'react';
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
+import { registerStart, registerSuccess, registerFailure } from '../redux/staff/staffSlice';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Addworkers() {
-  const location = useLocation();
-  console.log("Location state:", location.state); // Log the entire location object
-  console.log("Staff Details:", location.state?.staffDetails);
-  const [formData, setFormData] = useState(location.state?.staffDetails || {});
+export default function Addworkers({ navigateToWorkerList }) {
+  const [formData, setFormData] = useState({});
   const { loading, error } = useSelector((state) => state.staff);
   const dispatch = useDispatch();
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       dispatch(registerStart());
-      let url = '/api/auth/register';
-      let method = 'POST';
-      
-      // If staff details are provided, it's in update mode
-      if (location.state?.staffDetails) {
-        url = `/api/auth/update/${formData._id}`; // Adjust the endpoint for updating
-        method = 'PUT';
-      }
-
-      const res = await fetch(url, {
-        method,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      console.log(data);
-      
+      const res = await axios.post('/api/auth/register', formData);
+      const data = res.data;
       if (data.success === false) {
-        dispatch(registerFailure(data.message)); // Pass the error message to the failure action
+        dispatch(registerFailure(data.message));
         return;
       }
-      
       dispatch(registerSuccess(data));
       setFormData({});
-
-      // Show toast message when staff is successfully updated or created
       toast.success(data.message);
-      
+      navigateToWorkerList();
     } catch (error) {
-      dispatch(registerFailure(error.message)); // Pass the error message to the failure action
+      dispatch(registerFailure(error.message));
     }
+  };
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>{location.state?.staffDetails ? 'Update Worker' : 'Add Worker'}</h1>
+      <h1 className='text-3xl text-center font-semibold my-7'>Add Worker</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
-        {/* Form fields */}
-        <input type="text" placeholder='Name' id='name' 
+        <input type="text" placeholder='Name' id='name'
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.name || ''}
           onChange={handleChange}
-          required // Add the required attribute
+          required
         />
 
-        <input type="number" placeholder='Registration ID' id='id' 
+        <input type="number" placeholder='Registration ID' id='id'
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.id || ''}
           onChange={handleChange}
-          required // Add the required attribute
+          required
         />
 
-        <select 
-          name="type" 
-          id="type" 
-          value={formData.type || ''} 
-          className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400' 
+        <select
+          name="type"
+          id="type"
+          value={formData.type || ''}
+          className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           onChange={handleChange}
-          required // Add the required attribute
+          required
         >
-          <option value="" disabled>Type</option> 
-          <option value="Supervisor">Supervisor</option> 
-          <option value="Driver">Driver</option> 
-          <option value="Labor">Labor</option>  
+          <option value="" disabled>Type</option>
+          <option value="Supervisor">Supervisor</option>
+          <option value="Driver">Driver</option>
+          <option value="Labor">Labor</option>
         </select>
 
-        <input type="number" placeholder='Contact Number' id='number' 
+        <input type="number" placeholder='Contact Number' id='number'
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.number || ''}
           onChange={handleChange}
-          required // Add the required attribute
+          required
         />
 
-        <input type="email" placeholder='Email' id='email' 
+        <input type="email" placeholder='Email' id='email'
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.email || ''}
           onChange={handleChange}
-          required // Add the required attribute
+          required
         />
 
-        <input type="text" placeholder='Address' id='address' 
+        <input type="text" placeholder='Address' id='address'
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.address || ''}
           onChange={handleChange}
-          required // Add the required attribute
+          required
         />
 
-        <input type="date" placeholder='Join Date' id='joindate' 
+        <input type="date" placeholder='Join Date' id='joindate'
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.joindate || ''}
           onChange={handleChange}
-          required // Add the required attribute
+          required
         />
 
-        <input type="text" placeholder='Shift' id='shift' 
+        <input type="text" placeholder='Shift' id='shift'
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.shift || ''}
           onChange={handleChange}
-          required // Add the required attribute
+          required
         />
 
-        {!location.state?.staffDetails && (
-          <>
-            <input type="number" placeholder='License (Driver Only)' id='license'
-              className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
-              value={formData.license || ''}
-              onChange={handleChange}
-            />
+        <input type="number" placeholder='License (Driver Only)' id='license'
+          className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
+          value={formData.license || ''}
+          onChange={handleChange}
+        />
 
-            <input type="text" placeholder='Username (Supervisor Only)' id='username'
-              className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
-              value={formData.username || ''}
-              onChange={handleChange}
-            />
+        <input type="text" placeholder='Username (Supervisor Only)' id='username'
+          className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
+          value={formData.username || ''}
+          onChange={handleChange}
+          autoComplete="current-username"
+        />
 
-            <input type="password" placeholder='Password (Supervisor Only)' id='password'
-              className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
-              value={formData.password || ''}
-              onChange={handleChange}
-            />
-          </>
-        )}
+        <input
+          type="password"
+          placeholder="Password (Supervisor Only)"
+          id="password"
+          className="bg-slate-100 p-3 rounded-lg border-2 border-zinc-400"
+          value={formData.password || ''}
+          onChange={handleChange}
+          autoComplete="current-password"
+        />
 
         <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>
-          {loading ? 'Loading...' : 'Save'}
+          {loading ? 'Loading...' : 'Register'}
         </button>
       </form>
-      {/* Display error message if there's an error */}
       {error && <p className="text-red-700 mt-5">{error}</p>}
     </div>
   );

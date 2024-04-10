@@ -16,8 +16,23 @@ export const getStaff = async (req, res) => {
     }
 };
 
-export const updateStaff = async (req, res) => {
+export const getStaffById = async (req, res) => {
     const { id } = req.params;
+
+    try {
+        const staff = await Staff.findById(id);
+        if (!staff) {
+            return res.status(404).json({ success: false, message: "Staff member not found" });
+        }
+        res.json({ success: true, staff });
+    } catch (error) {
+        console.error("Error retrieving staff by ID:", error);
+        res.status(500).json({ success: false, message: "Internal Server Error" });
+    }
+};
+
+export const updateStaff = async (req, res) => {
+    const { id } = req.params; // Use _id instead of id
     const { number, name } = req.body;
 
     try {
