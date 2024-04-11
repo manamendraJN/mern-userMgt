@@ -40,7 +40,7 @@ export default function Addworkers() {
 
   return (
     <div className='p-3 max-w-lg mx-auto'>
-      <h1 className='text-3xl text-center font-semibold my-7'>Add Worker</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Add Workers</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
         <input type="text" placeholder='Name' id='name'
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'

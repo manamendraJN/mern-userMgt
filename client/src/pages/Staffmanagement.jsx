@@ -4,7 +4,7 @@ export default function Staffmanagement() {
   return (
     <div className='p-10 max-w-lg mx-auto flex flex-col gap-4 text-center'>
 
-    <h1 className="text-3xl mb-9">Manage Staff Members And Assign Workers To Shifts !!!</h1>
+    <h1 className="text-3xl font-bold mb-6 text-center">Manage Staff Members</h1>
     <Link to='/Addworkers'>
       <div className="bg-slate-200 mb-4 hover:opacity-80 rounded-lg p-3">Add Workers</div>
     </Link>

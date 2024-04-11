@@ -11,6 +11,7 @@ import Header from './component/Header';
 import { ToastContainer } from 'react-toastify'; // Import ToastContainer
 import 'react-toastify/dist/ReactToastify.css'; // Import toastify CSS
 import Updatestaff from './pages/Updatestaff';
+import Updateshift from './pages/Updateshift';
 
 export default function App() {
   return (
@@ -21,7 +22,8 @@ export default function App() {
         <Route path="/" element={<Staffmanagement />} />
         <Route path="/Addworkers" element={<Addworkers />} />
         <Route path="/Workerlist" element={<Workerlist />} />
-        <Route path="/Updatestaff/:staffId" element={<Updatestaff />} /> {/* Use element prop */}
+        <Route path="/Updatestaff/:staffId" element={<Updatestaff />} />
+        <Route path="/Updateshift/:shiftId" element={<Updateshift />} /> {/* Use element prop */}
         <Route path="/Addshift" element={<Addshift />} />
         <Route path="/Shiftlist" element={<Shiftlist />} />
         <Route path="/Login" element={<Login />} />

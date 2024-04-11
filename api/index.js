@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import staffRoutes from './routes/staff.route.js';
 import authRoutes from './routes/auth.route.js';
-
+import shiftRoutes from './routes/shift.route.js';
 
 dotenv.config();
 
@@ -23,6 +23,7 @@ app.listen(3000, () => {
 
 app.use("/api/staff", staffRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/shift", shiftRoutes);
 
 app.use((err, req, res, next) =>{
     const statusCode = err.statusCode || 500;
