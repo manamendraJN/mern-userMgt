@@ -47,7 +47,7 @@ export default function login() {
       <h1 className='text-3xl text-center font-semibold my-7'>Login</h1>
       <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
 
-        <input type="text" placeholder='Username' id='username' 
+        <input type="text" placeholder='Email' id='email' 
         className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
         onChange={handleChange}
         />

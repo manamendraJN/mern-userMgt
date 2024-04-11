@@ -16,7 +16,6 @@ export default function Updatestaff() {
     joindate: '',
     shift: '',
     license: '',
-    username: '',
     password: ''
   });
 

@@ -21,6 +21,7 @@ const staffSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+        unique: true,
     },
     address: {
         type: String,
@@ -30,16 +31,8 @@ const staffSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    shift: {
-        type: String,
-    },
     license: {
         type: Number,
-    },
-    username: {
-        type: String,
-        
-       
     },
     password: {
         type: String,

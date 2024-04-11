@@ -127,7 +127,6 @@ export default function Workerlist() {
             <th className="py-2 px-4 border">Email</th>
             <th className="py-2 px-4 border">Address</th>
             <th className="py-2 px-4 border">Join Date</th>
-            <th className="py-2 px-4 border">Shift</th>
             <th className="py-2 px-4 border">License</th>
             <th className="py-2 px-4 border">Actions</th>
           </tr>
@@ -148,7 +147,6 @@ export default function Workerlist() {
                 <td className="py-2 px-4 border">{staff.email}</td>
                 <td className="py-2 px-4 border">{staff.address}</td>
                 <td className="py-2 px-4 border">{staff.joindate}</td>
-                <td className="py-2 px-4 border">{staff.shift}</td>
                 <td className="py-2 px-4 border">{staff.license}</td>
                 <td className="py-2 px-4 border">
                 <div className="flex justify-between">

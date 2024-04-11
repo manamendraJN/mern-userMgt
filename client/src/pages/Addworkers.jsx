@@ -5,10 +5,19 @@ import { registerStart, registerSuccess, registerFailure } from '../redux/staff/
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function Addworkers({ navigateToWorkerList }) {
-  const [formData, setFormData] = useState({});
+export default function Addworkers() {
+  const [formData, setFormData] = useState({
+    type: '', // Initialize type in formData
+  });
   const { loading, error } = useSelector((state) => state.staff);
   const dispatch = useDispatch();
+
+  const handleChange = (e) => {
+    const { id, value } = e.target;
+
+    // Update form data
+    setFormData({ ...formData, [id]: value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,14 +32,10 @@ export default function Addworkers({ navigateToWorkerList }) {
       dispatch(registerSuccess(data));
       setFormData({});
       toast.success(data.message);
-      navigateToWorkerList();
     } catch (error) {
+      console.error('Error occurred:', error);
       dispatch(registerFailure(error.message));
     }
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
   };
 
   return (
@@ -56,7 +61,7 @@ export default function Addworkers({ navigateToWorkerList }) {
         <select
           name="type"
           id="type"
-          value={formData.type || ''}
+          value={formData.type} // Update value without || ''
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           onChange={handleChange}
           autoComplete="current-type"
@@ -76,14 +81,6 @@ export default function Addworkers({ navigateToWorkerList }) {
           required
         />
 
-        <input type="email" placeholder='Email' id='email'
-          className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
-          value={formData.email || ''}
-          onChange={handleChange}
-          autoComplete="current-email"
-          required
-        />
-
         <input type="text" placeholder='Address' id='address'
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
           value={formData.address || ''}
@@ -100,36 +97,31 @@ export default function Addworkers({ navigateToWorkerList }) {
           required
         />
 
-        <input type="text" placeholder='Shift' id='shift'
-          className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
-          value={formData.shift || ''}
-          onChange={handleChange}
-          autoComplete="current-shift"
-          required
-        />
-
         <input type="number" placeholder='License (Driver Only)' id='license'
-          className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
+          className={`bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 ${formData.type === 'Supervisor' || formData.type === 'Labor' ? 'opacity-50 cursor-not-allowed' : ''}`}
           value={formData.license || ''}
           onChange={handleChange}
           autoComplete="current-license"
+          disabled={formData.type === 'Supervisor' || formData.type === 'Labor'}
         />
 
-        <input type="text" placeholder='Username (Supervisor Only)' id='username'
+        <input type="email" placeholder='Email' id='email'
           className='bg-slate-100 p-3 rounded-lg border-2 border-zinc-400'
-          value={formData.username || ''}
+          value={formData.email || ''}
           onChange={handleChange}
-          autoComplete="current-username"
+          autoComplete="current-email"
+          required
         />
 
         <input
           type="password"
           placeholder="Password (Supervisor Only)"
           id="password"
-          className="bg-slate-100 p-3 rounded-lg border-2 border-zinc-400"
+          className={`bg-slate-100 p-3 rounded-lg border-2 border-zinc-400 ${formData.type === 'Driver' || formData.type === 'Labor' ? 'opacity-50 cursor-not-allowed' : ''}`}
           value={formData.password || ''}
           onChange={handleChange}
           autoComplete="current-password"
+          disabled={formData.type === 'Driver' || formData.type === 'Labor'}
         />
 
         <button disabled={loading} className='bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95'>

@@ -4,7 +4,7 @@ import { errorHandler } from "../utills/error.js";
 import Jwt from "jsonwebtoken";
 
 export const register = async(req,res,next)=>{
-    const {name,id,type,number,email,address,joindate,shift,license,username,password} = req.body;
+    const {name,id,type,number,email,address,joindate,shift,license,password} = req.body;
 
     // Create an object to hold only the required fields
     const staffData = {
@@ -15,16 +15,12 @@ export const register = async(req,res,next)=>{
         email,
         address,
         joindate,
-        shift,
+        
     };
 
     // If username and password are provided, include them in the staffData object
     if(license){staffData.license = license}
 
-    // Handle null values for username
-    if (username !== null && username !== undefined) {
-        staffData.username = username;
-    }
     // Handle null values for password
     if (password !== null && password !== undefined) {
         staffData.password = bcryptjs.hashSync(password, 10);
@@ -42,10 +38,10 @@ export const register = async(req,res,next)=>{
 
 
 export const login = async(req,res,next)=>{
-    const {username,password} = req.body;
+    const {email,password} = req.body;
 
     try {
-        const validUser = await Staff.findOne({username});
+        const validUser = await Staff.findOne({email});
         if (!validUser) return next(errorHandler(404, 'User not found'));
         const validPassword = bcryptjs.compareSync(password, validUser.password);
         if (!validPassword) return next(errorHandler(401, 'Wrong username or password'));
